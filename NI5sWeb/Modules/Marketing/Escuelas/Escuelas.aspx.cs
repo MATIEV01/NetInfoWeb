@@ -43,7 +43,7 @@ namespace NI5sWeb.Modules.Marketing.Escuelas
                     break;
                 case "GetEscuelas":
                     this.getEscuelas();
-                    break;
+                    break; 
                 case "GetZona":
                     this.getGetZona();
                     break;
