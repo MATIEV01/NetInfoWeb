@@ -214,19 +214,22 @@
                 $(document).on("keyup", '#proSearcher', po.searchEscuelas);
                 $(document).on("click", "#plzAdminBlock .new", po.limpiarCampos);
                 $(document).on('click', '#pnllistclicos .movible .addCicloBtn', po.addCiclos);
-
-
-                $(document).on("click", ".searchField .panel-footer .btn-group a.delSchool", po.deleteSchool);
-                $(document).on("click", ".searchField .panel-footer .btn-group a.modSchool", po.modSchool);
-                $(document).on("click", "#newProd .btn-success", po.addProduct)
-                $(document).on("keyup", "#searchProdId, #searchProd", po.searchProduct);
-                $(document).on("click", "#dbProductList a", po.selectProduct);
-                $(document).on("click", "#productsList .input-group .btn", po.removeProduct);
-                $('#listaEscolarModal').on('show.bs.modal', po.getElSchool);
+                $(document).on('click', '#pnllistclicos .movible .btn', po.getElSchool);
                 $(document).on("click", "#accordion .panel-info .list-group a, #hCompra a", po.getSchoolList);
-                $(document).on("click", "#saveStudents", po.addStudentsNumber);
-                $(document).on("click", "#schoolEditModal .modal-footer .btn-primary", po.setModSchool);
+
+
+                //$(document).on("click", ".searchField .panel-footer .btn-group a.delSchool", po.deleteSchool);
+                //$(document).on("click", ".searchField .panel-footer .btn-group a.modSchool", po.modSchool);
+                //$(document).on("click", "#newProd .btn-success", po.addProduct)
+                //$(document).on("keyup", "#searchProdId, #searchProd", po.searchProduct);
+                //$(document).on("click", "#dbProductList a", po.selectProduct);
+                //$(document).on("click", "#productsList .input-group .btn", po.removeProduct);
+                //$('#listaEscolarModal').on('show.bs.modal', po.getElSchool);
+                //$(document).on("click", "#accordion .panel-info .list-group a, #hCompra a", po.getSchoolList);
+                //$(document).on("click", "#saveStudents", po.addStudentsNumber);
+                //$(document).on("click", "#schoolEditModal .modal-footer .btn-primary", po.setModSchool);
             },
+
             GetDelegacionPnl: function () {
                 mp.waitPage("show");
                 po.limpiarCampos();
@@ -261,8 +264,10 @@
                         $("#plzAdminBlock .new").attr("disabled", false);
                     else
                         $("#plzAdminBlock .new").attr("disabled", true);
+
+                    mp.waitPage("hide");
                 });
-                mp.waitPage("hide");
+              
             },
 
             selectPlz: function () {
@@ -294,7 +299,7 @@
                 //Obtener datos generales de la plaza
                 var cct = btn.data('id');
 
-                schoolSelected = cct;
+                po.schoolSelected = cct;
 
                 $('#DatNombre').val(btn.data('nombre'));
                 $('#DatCCT').val(cct);
@@ -346,9 +351,12 @@
                     //    $("#plzAdminBlock .new").attr("disabled", true);
                 });
 
-                $('#accordion .panel-info').hide();
-                //for (i = 0; i < sl.length; i++)
-                $('#accordion .panel-info:contains(' + btn.data('nivel') + ')').show();
+
+                $("#listaEscolarModal").hide();
+
+                //$('#accordion .panel-info').hide();
+                ////for (i = 0; i < sl.length; i++)
+                //$('#accordion .panel-info:contains(' + btn.data('nivel') + ')').show();
 
                 //po.getElSchool();
 
@@ -446,32 +454,38 @@
                     cicle = cicle + '-' + (parseInt(cicle) + 1);
                 }
 
-                lc.append('<div class="form-field"><a href="#" class="btn btn-default form-control" data-toggle="modal" data-target="#listaEscolarModal" data-backdrop="false">' + cicle + '</a></div>');
+                //lc.append('<div class="form-field"><a href="#" class="btn btn-default form-control" data-toggle="modal" data-target="#listaEscolarModal" data-backdrop="false">' + cicle + '</a></div>');
+                lc.append('<div class="form-field"><a href="#" class="btn btn-default form-control"  data-backdrop="false">' + cicle + '</a></div>');
             },
 
 
 
 
 
-            //getElSchool: function (event) {
-            //    var button = $(event.relatedTarget)
-            //    var school = button.parents('.panel');
-            //    po.schoolSelected = school.data('id');
-            //    po.ciclo = button.text();
-            //    var mod = $(this);
-            //    $('.lists').hide();
-            //    $('#accordion .active').removeClass('active');
+            getElSchool: function () {
+                //var button = (event.relatedTarget)
+                //var school = $(this).parents('.panel');
+                //po.schoolSelected = school.data('id');
+                $("#listaEscolarModal").show();
 
-            //    mod.find('.ciclo').text(button.text());
-            //    //Obtener Botones de nivel de estudios
-            //    var sl = school.find('.list-group-item-text').eq(1).text();
-            //    sl = sl.split(': ');
-            //    sl = sl[1].split(',');
+                var school = $('#PlzList .active');
+                var nivel = school.data("nivel");
+               // po.schoolSelected = school.data("id");
+                po.ciclo = $(this).text();
+               // var mod = $(this);
+                $('.lists').hide();
+                $('#accordion .active').removeClass('active');
 
-            //    $('#accordion .panel-info').hide();
-            //    for (i = 0; i < sl.length; i++)
-            //        $('#accordion .panel-info:contains(' + sl[i] + ')').show();
-            //},
+                $('#listaEscolarModal .panel-heading .ciclo').text(po.ciclo);
+                //Obtener Botones de nivel de estudios
+                //var sl = school.find('.list-group-item-text').eq(1).text();
+                //sl = sl.split(': ');
+                //sl = sl[1].split(',');
+
+                $('#accordion .panel-info').hide();
+                //for (i = 0; i < sl.length; i++)
+                $('#accordion .panel-info:contains(' + nivel + ')').show();
+            },
             getSchoolList: function () {
                 if ($(this).data('id') == "compra") {
                     var el = $(this).data('id');
@@ -483,7 +497,7 @@
                 $('#accordion .active').removeClass('active');
                 $(this).addClass('active');
                 grade = parseInt(grade) + 1;
-                if (el == 'Preescolar') el = 'Jardin';
+                if (el == 'PREESCOLAR') el = 'Jardin';
 
                 var schoolList = $('#productsList');
                 schoolList.data('school', po.schoolSelected);

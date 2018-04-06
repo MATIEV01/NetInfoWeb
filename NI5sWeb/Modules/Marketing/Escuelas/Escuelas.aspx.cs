@@ -198,7 +198,7 @@ namespace NI5sWeb.Modules.Marketing.Escuelas
             string list = "<div class=\"listCiclos\"><div class=\"movible\"><div class=\"listContent\">";
 
             foreach (DataRow cicle in cicles.Rows)
-                list += "<div class=\"form-field\"><a href=\"#\" class=\"btn btn-default form-control\" data-toggle=\"modal\" data-target=\"#listaEscolarModal\" data-backdrop=\"false\">" + cicle["Ciclo"] + "</a></div>";
+                list += "<div class=\"form-field\"><a href=\"#\" class=\"btn btn-default form-control\"  data-backdrop=\"false\">" + cicle["Ciclo"] + "</a></div>";
             list += "</div><div class=\"row form-field\">";
             list += "<a href=\"#\" class=\"addCicloBtn\">Agregar Lista...</a>";
             list += "</div></div></div>";
