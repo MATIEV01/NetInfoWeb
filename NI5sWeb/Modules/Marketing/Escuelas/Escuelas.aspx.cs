@@ -45,7 +45,7 @@ namespace NI5sWeb.Modules.Marketing.Escuelas
                     this.getEscuelas();
                     break; 
                 case "GetZona":
-                    this.getGetZona();
+                    this.getGetZona(); 
                     break;
                 case "GetCliclos":
                     this.getCiclos();
@@ -55,7 +55,10 @@ namespace NI5sWeb.Modules.Marketing.Escuelas
                     break;
                 case "ShowSchoolProducts":
                     this.showSchoolProducts();
-                    break;
+                    break;   
+
+
+
                     //case "GetPromoters":
                     //    this.getPromoters(true);
                     //    break;
