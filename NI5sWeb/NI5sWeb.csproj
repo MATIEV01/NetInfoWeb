@@ -1,0 +1,416 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="12.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <Import Project="$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props" Condition="Exists('$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props')" />
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+    <ProductVersion>
+    </ProductVersion>
+    <SchemaVersion>2.0</SchemaVersion>
+    <ProjectGuid>{E3E96850-AA73-43B0-830F-6B787320ABA9}</ProjectGuid>
+    <ProjectTypeGuids>{349c5851-65df-11da-9384-00065b846f21};{fae04ec0-301f-11d3-bf4b-00c04f79efbc}</ProjectTypeGuids>
+    <OutputType>Library</OutputType>
+    <AppDesignerFolder>Properties</AppDesignerFolder>
+    <RootNamespace>NI5sWeb</RootNamespace>
+    <AssemblyName>NI5sWeb</AssemblyName>
+    <TargetFrameworkVersion>v4.5</TargetFrameworkVersion>
+    <UseIISExpress>true</UseIISExpress>
+    <IISExpressSSLPort />
+    <IISExpressAnonymousAuthentication />
+    <IISExpressWindowsAuthentication />
+    <IISExpressUseClassicPipelineMode />
+    <UseGlobalApplicationHostFile />
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>full</DebugType>
+    <Optimize>false</Optimize>
+    <OutputPath>bin\</OutputPath>
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+    <IncludeIisSettings>false</IncludeIisSettings>
+    <PublishDatabases>true</PublishDatabases>
+    <DeployEncryptKey>Encryption password is used only if any deployment setting is marked as secure</DeployEncryptKey>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+    <DebugType>pdbonly</DebugType>
+    <Optimize>true</Optimize>
+    <OutputPath>bin\</OutputPath>
+    <DefineConstants>TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <ItemGroup>
+    <Reference Include="CrystalDecisions.CrystalReports.Design, Version=13.0.2000.0, Culture=neutral, PublicKeyToken=692fbea5521e1304, processorArchitecture=MSIL" />
+    <Reference Include="CrystalDecisions.CrystalReports.Engine, Version=13.0.2000.0, Culture=neutral, PublicKeyToken=692fbea5521e1304, processorArchitecture=MSIL" />
+    <Reference Include="CrystalDecisions.ReportSource, Version=13.0.2000.0, Culture=neutral, PublicKeyToken=692fbea5521e1304, processorArchitecture=MSIL" />
+    <Reference Include="CrystalDecisions.Shared, Version=13.0.2000.0, Culture=neutral, PublicKeyToken=692fbea5521e1304, processorArchitecture=MSIL" />
+    <Reference Include="CrystalDecisions.Web, Version=13.0.2000.0, Culture=neutral, PublicKeyToken=692fbea5521e1304, processorArchitecture=MSIL" />
+    <Reference Include="Microsoft.Azure.AppService.ApiApps.Service, Version=0.9.16.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.Azure.AppService.ApiApps.Service.0.9.16\lib\net45\Microsoft.Azure.AppService.ApiApps.Service.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="Microsoft.CSharp" />
+    <Reference Include="Newtonsoft.Json, Version=6.0.0.0, Culture=neutral, PublicKeyToken=30ad4fe6b2a6aeed, processorArchitecture=MSIL">
+      <HintPath>..\packages\Newtonsoft.Json.6.0.4\lib\net45\Newtonsoft.Json.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="System.IdentityModel.Tokens.Jwt, Version=4.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\packages\System.IdentityModel.Tokens.Jwt.4.0.0\lib\net45\System.IdentityModel.Tokens.Jwt.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="System.Net.Http" />
+    <Reference Include="System.Net.Http.Formatting, Version=5.2.3.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.AspNet.WebApi.Client.5.2.3\lib\net45\System.Net.Http.Formatting.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="System.Web.DynamicData" />
+    <Reference Include="System.Web.Entity" />
+    <Reference Include="System.Web.ApplicationServices" />
+    <Reference Include="System.ComponentModel.DataAnnotations" />
+    <Reference Include="System" />
+    <Reference Include="System.Data" />
+    <Reference Include="System.Core" />
+    <Reference Include="System.Data.DataSetExtensions" />
+    <Reference Include="System.Web.Extensions" />
+    <Reference Include="System.Xml.Linq" />
+    <Reference Include="System.Drawing" />
+    <Reference Include="System.Web" />
+    <Reference Include="System.Xml" />
+    <Reference Include="System.Configuration" />
+    <Reference Include="System.Web.Services" />
+    <Reference Include="System.EnterpriseServices" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="CapturaPresupuesto.aspx" />
+    <Content Include="Global.asax" />
+    <Content Include="Modules\Contabilidad\PresupuestoGastos\adminUsers.aspx" />
+    <Content Include="Modules\Contabilidad\PresupuestoGastos\analisisPresupuesto.aspx" />
+    <Content Include="Modules\Contabilidad\PresupuestoGastos\CapturaPresupuesto.aspx" />
+    <Content Include="Modules\Contabilidad\PresupuestoGastos\presupuestacion.aspx" />
+    <Content Include="Modules\Logistica\GuiasEmbarqueExtranjero.aspx" />
+    <Content Include="Modules\Marketing\Escuelas\CapturaPreciosProductos.aspx" />
+    <Content Include="Modules\Marketing\Escuelas\CatalogoEscuelas.aspx" />
+    <Content Include="Modules\Marketing\Escuelas\Escuelas.aspx" />
+    <Content Include="Modules\Marketing\Escuelas\ListasEscolares.aspx" />
+    <Content Include="Modules\Marketing\Escuelas\Reports\ProductsReport.aspx" />
+    <Content Include="Modules\Marketing\Escuelas\Reports\ReporteGeneral.aspx" />
+    <Content Include="Modules\Marketing\Promotores\AnalisisObjetivos.aspx" />
+    <Content Include="Modules\Marketing\Promotores\CatalogoPromotores.aspx" />
+    <Content Include="Modules\Marketing\Promotores\getImage.aspx" />
+    <Content Include="Modules\Marketing\Promotores\Reports\ObjetivesReportA.aspx" />
+    <Content Include="Modules\RH\ControlVacaciones.aspx" />
+    <Content Include="Modules\RH\Cursos.aspx" />
+    <Content Include="Modules\RH\getPdf.aspx" />
+    <Content Include="Modules\RH\Pelikiosko.aspx" />
+    <Content Include="Modules\RH\Reporte\getFormato.aspx" />
+    <Content Include="Modules\Security\Login.aspx" />
+    <Content Include="Modules\Security\NetInfoPermissions.aspx" />
+    <Content Include="Themes\NIWeb\css\bootstrap-multiselect.css" />
+    <Content Include="Themes\NIWeb\fonts\fontawesome-webfont.eot" />
+    <Content Include="Themes\NIWeb\fonts\fontawesome-webfont.ttf" />
+    <Content Include="Themes\NIWeb\fonts\fontawesome-webfont.woff" />
+    <Content Include="Themes\NIWeb\fonts\fontawesome-webfont.woff2" />
+    <Content Include="Themes\NIWeb\fonts\FontAwesome.otf" />
+    <Content Include="Themes\NIWeb\fonts\glyphicons-halflings-regular.eot" />
+    <Content Include="Themes\NIWeb\fonts\glyphicons-halflings-regular.ttf" />
+    <Content Include="Themes\NIWeb\fonts\glyphicons-halflings-regular.woff" />
+    <Content Include="Themes\NIWeb\fonts\glyphicons-halflings-regular.woff2" />
+    <Content Include="Themes\NIWeb\js\bootstrap-formhelpers-phone.js" />
+    <Content Include="Themes\NIWeb\js\bootstrap-multiselect.js" />
+    <Content Include="Themes\NIWeb\js\Functions.js" />
+    <Content Include="Themes\NIWeb\js\canvasjs.js" />
+    <Content Include="Themes\NIWeb\js\excanvas.js" />
+    <Content Include="Themes\NIWeb\js\jPaginate.js" />
+    <Content Include="Themes\NIWeb\js\jquery.canvasjs.js" />
+    <Content Include="Themes\NIWeb\js\jquery.datepair.min.js" />
+    <Content Include="Themes\NIWeb\js\jquery.js" />
+    <Content Include="Themes\NIWeb\js\jQuery.print.js" />
+    <Content Include="Themes\NIWeb\js\numeral.min.js" />
+    <Content Include="Themes\NIWeb\js\pdfobject.js" />
+    <Content Include="Themes\NIWeb\NI5.Master" />
+    <Content Include="Themes\NIWeb\NI5Local.Master" />
+    <Content Include="packages.config">
+      <SubType>Designer</SubType>
+    </Content>
+    <Content Include="Metadata\deploymentTemplates\apiappconfig.azureresource.json" />
+    <Content Include="apiapp.json" />
+    <None Include="Properties\PublishProfiles\NI5sWeb.pubxml" />
+    <None Include="Properties\PublishProfiles\NI5Web.pubxml" />
+    <None Include="Properties\Settings.settings">
+      <Generator>SettingsSingleFileGenerator</Generator>
+      <LastGenOutput>Settings.Designer.cs</LastGenOutput>
+    </None>
+    <None Include="Web.Debug.config">
+      <DependentUpon>Web.config</DependentUpon>
+    </None>
+    <None Include="Web.Release.config">
+      <DependentUpon>Web.config</DependentUpon>
+    </None>
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="Default.aspx" />
+    <Content Include="Themes\NIWeb\css\bootstrap.min.css" />
+    <Content Include="Themes\NIWeb\css\font-awesome.min.css" />
+    <Content Include="Themes\NIWeb\css\iGitWebDialogs.min.css" />
+    <Content Include="Themes\NIWeb\css\NIW.css" />
+    <Content Include="Themes\NIWeb\fonts\fontawesome-webfont.svg" />
+    <Content Include="Themes\NIWeb\fonts\glyphicons-halflings-regular.svg" />
+    <Content Include="Themes\NIWeb\img\backMiniLogo.png" />
+    <Content Include="Themes\NIWeb\img\backNormalLogo.png" />
+    <Content Include="Themes\NIWeb\img\favicon.ico" />
+    <Content Include="Themes\NIWeb\img\Preloader_2.gif" />
+    <Content Include="Themes\NIWeb\js\bootstrap.min.js" />
+    <Content Include="Themes\NIWeb\js\iGitWebDialogs.min.js" />
+    <Content Include="Themes\NIWeb\js\jquery-1.11.3.min.js" />
+    <Content Include="Themes\NIWeb\js\NIW.js" />
+    <Content Include="Web.config" />
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="CapturaPresupuesto.aspx.cs">
+      <DependentUpon>CapturaPresupuesto.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="CapturaPresupuesto.aspx.designer.cs">
+      <DependentUpon>CapturaPresupuesto.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Default.aspx.cs">
+      <DependentUpon>Default.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Default.aspx.designer.cs">
+      <DependentUpon>Default.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Global.asax.cs">
+      <DependentUpon>Global.asax</DependentUpon>
+    </Compile>
+    <Compile Include="Modules\Contabilidad\PresupuestoGastos\adminUsers.aspx.cs">
+      <DependentUpon>adminUsers.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Modules\Contabilidad\PresupuestoGastos\adminUsers.aspx.designer.cs">
+      <DependentUpon>adminUsers.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Modules\Contabilidad\PresupuestoGastos\analisisPresupuesto.aspx.cs">
+      <DependentUpon>analisisPresupuesto.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Modules\Contabilidad\PresupuestoGastos\analisisPresupuesto.aspx.designer.cs">
+      <DependentUpon>analisisPresupuesto.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Modules\Contabilidad\PresupuestoGastos\CapturaPresupuesto.aspx.cs">
+      <DependentUpon>CapturaPresupuesto.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Modules\Contabilidad\PresupuestoGastos\CapturaPresupuesto.aspx.designer.cs">
+      <DependentUpon>CapturaPresupuesto.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Modules\Contabilidad\PresupuestoGastos\presupuestacion.aspx.cs">
+      <DependentUpon>presupuestacion.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Modules\Contabilidad\PresupuestoGastos\presupuestacion.aspx.designer.cs">
+      <DependentUpon>presupuestacion.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Modules\Logistica\GuiasEmbarqueExtranjero.aspx.cs">
+      <DependentUpon>GuiasEmbarqueExtranjero.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Modules\Logistica\GuiasEmbarqueExtranjero.aspx.designer.cs">
+      <DependentUpon>GuiasEmbarqueExtranjero.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Modules\Marketing\Escuelas\CapturaPreciosProductos.aspx.cs">
+      <DependentUpon>CapturaPreciosProductos.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Modules\Marketing\Escuelas\CapturaPreciosProductos.aspx.designer.cs">
+      <DependentUpon>CapturaPreciosProductos.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Modules\Marketing\Escuelas\CatalogoEscuelas.aspx.cs">
+      <DependentUpon>CatalogoEscuelas.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Modules\Marketing\Escuelas\CatalogoEscuelas.aspx.designer.cs">
+      <DependentUpon>CatalogoEscuelas.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Modules\Marketing\Escuelas\Escuelas.aspx.cs">
+      <DependentUpon>Escuelas.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Modules\Marketing\Escuelas\Escuelas.aspx.designer.cs">
+      <DependentUpon>Escuelas.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Modules\Marketing\Escuelas\ListasEscolares.aspx.cs">
+      <DependentUpon>ListasEscolares.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Modules\Marketing\Escuelas\ListasEscolares.aspx.designer.cs">
+      <DependentUpon>ListasEscolares.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Modules\Marketing\Escuelas\Reports\ProductsReport.aspx.cs">
+      <DependentUpon>ProductsReport.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Modules\Marketing\Escuelas\Reports\ProductsReport.aspx.designer.cs">
+      <DependentUpon>ProductsReport.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Modules\Marketing\Escuelas\Reports\ReporteGeneral.aspx.cs">
+      <DependentUpon>ReporteGeneral.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Modules\Marketing\Escuelas\Reports\ReporteGeneral.aspx.designer.cs">
+      <DependentUpon>ReporteGeneral.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Modules\Marketing\Promotores\AnalisisObjetivos.aspx.cs">
+      <DependentUpon>AnalisisObjetivos.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Modules\Marketing\Promotores\AnalisisObjetivos.aspx.designer.cs">
+      <DependentUpon>AnalisisObjetivos.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Modules\Marketing\Promotores\CatalogoPromotores.aspx.cs">
+      <DependentUpon>CatalogoPromotores.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Modules\Marketing\Promotores\CatalogoPromotores.aspx.designer.cs">
+      <DependentUpon>CatalogoPromotores.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Modules\Marketing\Promotores\getImage.aspx.cs">
+      <DependentUpon>getImage.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Modules\Marketing\Promotores\getImage.aspx.designer.cs">
+      <DependentUpon>getImage.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Modules\Marketing\Promotores\Reports\ObjetivesReportA.aspx.cs">
+      <DependentUpon>ObjetivesReportA.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Modules\Marketing\Promotores\Reports\ObjetivesReportA.aspx.designer.cs">
+      <DependentUpon>ObjetivesReportA.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Modules\RH\ControlVacaciones.aspx.cs">
+      <DependentUpon>ControlVacaciones.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Modules\RH\ControlVacaciones.aspx.designer.cs">
+      <DependentUpon>ControlVacaciones.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Modules\RH\Cursos.aspx.cs">
+      <DependentUpon>Cursos.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Modules\RH\Cursos.aspx.designer.cs">
+      <DependentUpon>Cursos.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Modules\RH\getPdf.aspx.cs">
+      <DependentUpon>getPdf.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Modules\RH\getPdf.aspx.designer.cs">
+      <DependentUpon>getPdf.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Modules\RH\Pelikiosko.aspx.cs">
+      <DependentUpon>Pelikiosko.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Modules\RH\Pelikiosko.aspx.designer.cs">
+      <DependentUpon>Pelikiosko.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Modules\RH\Reporte\getFormato.aspx.cs">
+      <DependentUpon>getFormato.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Modules\RH\Reporte\getFormato.aspx.designer.cs">
+      <DependentUpon>getFormato.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Modules\RH\Reporte\VacacionesFormato5s.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>VacacionesFormato5s.rpt</DependentUpon>
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="Modules\Security\Login.aspx.cs">
+      <DependentUpon>Login.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Modules\Security\Login.aspx.designer.cs">
+      <DependentUpon>Login.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Modules\Security\NetInfoPermissions.aspx.cs">
+      <DependentUpon>NetInfoPermissions.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Modules\Security\NetInfoPermissions.aspx.designer.cs">
+      <DependentUpon>NetInfoPermissions.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="NIWeb\NIcore.cs" />
+    <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Properties\Settings.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTimeSharedInput>True</DesignTimeSharedInput>
+      <DependentUpon>Settings.settings</DependentUpon>
+    </Compile>
+    <Compile Include="Themes\NIWeb\NI5.Master.cs">
+      <DependentUpon>NI5.Master</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Themes\NIWeb\NI5.Master.designer.cs">
+      <DependentUpon>NI5.Master</DependentUpon>
+    </Compile>
+    <Compile Include="Themes\NIWeb\NI5Local.Master.cs">
+      <DependentUpon>NI5Local.Master</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Themes\NIWeb\NI5Local.Master.designer.cs">
+      <DependentUpon>NI5Local.Master</DependentUpon>
+    </Compile>
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="Modules\RH\Reporte\VacacionesFormato5s.rpt">
+      <Generator>CrystalDecisions.VSDesigner.CodeGen.ReportCodeGenerator</Generator>
+      <LastGenOutput>VacacionesFormato5s.cs</LastGenOutput>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Properties\licenses.licx" />
+  </ItemGroup>
+  <ItemGroup>
+    <Service Include="{C0C07587-41A7-46C8-8FBD-3F9C8EBE2DDC}" />
+  </ItemGroup>
+  <ItemGroup>
+    <Folder Include="Modules\Contabilidad\Reports\" />
+    <Folder Include="Modules\RH\Reporte\PDF\" />
+  </ItemGroup>
+  <PropertyGroup>
+    <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>
+    <VSToolsPath Condition="'$(VSToolsPath)' == ''">$(MSBuildExtensionsPath32)\Microsoft\VisualStudio\v$(VisualStudioVersion)</VSToolsPath>
+  </PropertyGroup>
+  <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
+  <Import Project="$(VSToolsPath)\WebApplications\Microsoft.WebApplication.targets" Condition="'$(VSToolsPath)' != ''" />
+  <Import Project="$(MSBuildExtensionsPath32)\Microsoft\VisualStudio\v10.0\WebApplications\Microsoft.WebApplication.targets" Condition="false" />
+  <ProjectExtensions>
+    <VisualStudio>
+      <FlavorProperties GUID="{349c5851-65df-11da-9384-00065b846f21}">
+        <WebProjectProperties>
+          <UseIIS>True</UseIIS>
+          <AutoAssignPort>True</AutoAssignPort>
+          <DevelopmentServerPort>52086</DevelopmentServerPort>
+          <DevelopmentServerVPath>/</DevelopmentServerVPath>
+          <IISUrl>http://localhost:52086/</IISUrl>
+          <NTLMAuthentication>False</NTLMAuthentication>
+          <UseCustomServer>False</UseCustomServer>
+          <CustomServerUrl>
+          </CustomServerUrl>
+          <SaveServerSettingsInUserFile>False</SaveServerSettingsInUserFile>
+        </WebProjectProperties>
+      </FlavorProperties>
+    </VisualStudio>
+  </ProjectExtensions>
+  <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
+       Other similar extension points exist, see Microsoft.Common.targets.
+  <Target Name="BeforeBuild">
+  </Target>
+  <Target Name="AfterBuild">
+  </Target>
+  -->
+</Project>

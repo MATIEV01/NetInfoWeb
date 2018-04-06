@@ -1,0 +1,153 @@
+﻿body, html {
+    background-color:#fff;
+    margin: 0;
+    padding:0;
+    min-width:100%;
+    min-height:100%;
+}
+
+/* --- Cabecera --- */
+header{
+    margin:0;
+    padding:0;
+    background-color:#fff;
+}
+header .logo img{
+    float:left;
+    margin:0;
+    padding:0;
+}
+header .logo h1{
+    margin:0;
+    padding:.58em 0 0 0;
+    font-size: 2em;
+}
+header h2{
+    margin:0;
+    padding:10px 15px;
+    font-size:1.5em;
+}
+header .logo-right{
+    display:none;
+    float:right;
+    margin-top:-100px;
+}
+@media (min-width: 992px){
+    header .logo-right{
+        display:block;
+    }
+}
+
+/* --- Contenido --- */
+.content{
+    position:relative;
+    box-sizing:border-box;
+}
+@media (min-width: 992px) {
+    .content{
+        display:-webkit-flex;
+        display:flex;
+    }
+}
+
+/* --- Menú Principal --- */
+#leftBar{
+    z-index:999;
+}
+#leftBar button{
+    background-color:#0053A0;
+    border:none;
+    color:#fff;
+    font-size:1.3em;
+    width:100%;
+    padding:5px 0;
+}
+#leftBar button.active{
+    background-color:#005AAA;
+}
+#leftBar .menu{
+    display:none;
+    background-color:#005AAA;
+    position:relative;
+    margin-top:-0px;
+    z-index:99;
+}
+#leftBar .menu ul{
+    margin:0;
+    padding:0;
+    list-style:none;
+}
+#leftBar .menu ul li a{
+    display:block;
+    color:#fff;
+    padding:7px 5px;
+    text-decoration:none;
+}
+@media (min-width: 992px){
+    #leftBar{
+        margin:0;
+        padding:0;
+        width:4%;
+        float:left;
+    }
+    #leftBar button{
+        width:150px;
+        transform:rotateZ(270deg);
+        position:relative;
+        top:100px;
+        left:-58px;
+    }
+    #leftBar button:nth-child(2n+1){
+        position:relative;
+        top:58px;
+    }
+    #leftBar button:nth-child(2n){
+        position:relative;
+        top:172px;
+    }
+    #leftBar .menu{
+        display:none;
+        position:absolute;
+        padding:15px;
+        min-width:250px;
+    }
+}
+
+/* --- Contenedor Principal --- */
+#content{
+    box-sizing:border-box;
+    z-index:1;
+}
+@media (min-width: 992px) {
+    #content{
+        float:left;
+        width:96%;
+    }
+}
+
+/* --- WaitPage --- */
+.mask {
+    background-color: rgba(255, 255, 255,.6);
+    width:100%;
+    height:100%;
+    position:fixed;
+    top:0;
+    left:0;
+    display: none;
+    z-index:9999;
+}
+.figure{
+    background: url('../img/Preloader_2.gif') 50% 50% no-repeat;
+    width:100%;
+    height:100%;
+}
+
+.clear{
+    clear:both;
+}
+
+@media print{
+    header h2{display:none;}
+    header .logo-right{display:none;}
+    #leftBar{display:none;}
+}

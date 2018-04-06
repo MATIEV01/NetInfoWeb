@@ -1,0 +1,27 @@
+﻿<%@ Master Language="C#" AutoEventWireup="true" CodeBehind="NI5Local.master.cs" Inherits="NI5sWeb.Themes.NIWeb.NI5Local" %>
+
+<!DOCTYPE html>
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head runat="server">
+    <meta charset="utf-8" />
+    <title></title>
+    <!-- Hojas de Estilo -->
+    <link href="/Themes/NIWeb/css/font-awesome.min.css" rel="stylesheet" />
+    <link href="/Themes/NIWeb/css/bootstrap.min.css" rel="stylesheet" />
+</head>
+<body>
+    <form id="form1" runat="server">
+    <div>
+        <asp:ContentPlaceHolder ID="ContentPlaceHolder1" runat="server">
+        
+        </asp:ContentPlaceHolder>
+    </div>
+    </form>
+
+    <script src="/Themes/NIWeb/js/jquery-1.11.3.min.js"></script>
+    <script src="/Themes/NIWeb/js/bootstrap.min.js"></script>
+    <asp:ContentPlaceHolder ID="head" runat="server">
+    </asp:ContentPlaceHolder>
+</body>
+</html>
