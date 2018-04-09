@@ -55,9 +55,19 @@ namespace NI5sWeb.Modules.Marketing.Escuelas
                     break;
                 case "ShowSchoolProducts":
                     this.showSchoolProducts();
-                    break;   
-
-
+                    break;
+                case "GetSearch":
+                    this.getSearchProducts();
+                    break;
+                case "AddStudentsNumber":
+                    this.addStudentsNumber();
+                    break;
+                case "AddProduct":
+                    this.addProduct();
+                    break;
+                case "RemoveProduct":
+                    this.removeProduct();
+                    break;
 
                     //case "GetPromoters":
                     //    this.getPromoters(true);
@@ -242,9 +252,76 @@ namespace NI5sWeb.Modules.Marketing.Escuelas
             Response.End();
         }
 
+        protected void getSearchProducts()
+        {
+            DataTable prods = this.dbGetSearchProducts(Convert.ToInt32(Request["case"]), Request["search"]);
+            string list = String.Empty;
+            foreach (DataRow prod in prods.Rows)
+            {
+                list += "<a href=\"#\" class=\"list-group-item\" data-um=\"" + prod["UnidadMedida"] + "\"><span class=\"label label-default\">" + prod["ProdId"] + "</span> " + prod["Prod"] + "</a>";
+            }
+            //dbProductList.Controls.Add(new LiteralControl(list));
+            Response.Write(list);
+            Response.End();
+        }
+
+        protected void addProduct()
+        {
+            string prodId = Request["prod"];
+            string school = Request["school"];
+            string el = Request["el"];
+            int grade = Convert.ToInt32(Request["grade"]);
+            int amount = Convert.ToInt32(Request["amount"]);
+            string ci = Request["ciclo"];
+            string list = String.Empty;
+
+            DataTable product = this.dbSetProduct(prodId, school, el, grade, amount, ci);
+            if (product.Rows.Count > 0)
+            {
+                DataRow prod = product.Rows[0];
+                list = "<div class=\"input-group\" data-school=\"" + prod["SchoolId"] + "\" data-el=\"" + prod["EducationLevel"] + "\" data-grade=\"" + prod["Grade"] + "\">";
+                list += "<span class=\"input-group-addon\">" + prod["ProductId"] + "</span>";
+                list += "<p class=\"form-control\">" + prod["Product"] + "</p>";
+                list += "<span class=\"input-group-addon\">" + prod["Amount"] + " " + prod["UnidadMedida"] + "</span>";
+                list += "<span class=\"input-group-btn\"><button class=\"btn btn-danger\" type=\"button\" data-id=\"" + prod["RowId"] + "\"><i class=\"fa fa-trash\"></i></button></span></div>";
+            }
+            else
+            {
+                list = "0";
+            }
+
+            Response.Write(list);
+            Response.End();
+        }
+
+        protected void removeProduct()
+        {
+            if (this.dbRemoveProduct(Convert.ToInt32(Request["id"])))
+                Response.Write(1);
+            else
+                Response.Write(0);
+            Response.End();
+        }
+
+        protected void addStudentsNumber()
+        {
+            int sc = Convert.ToInt32(Request["sc"]);
+            string lvl = Request["lvl"];
+            int gr = Convert.ToInt32(Request["gr"]);
+            int no = Convert.ToInt32(Request["no"]);
+            string ci = Request["ci"];
+            string fo = Request["fo"];//folio
+
+            if (dbSetStudentsNumber(sc, lvl, gr, no, ci, fo))
+                Response.Write(1);
+            else
+                Response.Write(0);
+            Response.End();
+        }
+
         protected DataTable dbGetEstados()
         {
-            return this.core.executeSqlTab("select  StateId as Estado,upper(State) as Descripcion from     NIW_MK_States  ");
+            return this.core.executeSqlTab("select  StateId as Estado,upper(State) as Descripcion from   NIW_MK_States  ");
         }
 
 
@@ -305,6 +382,26 @@ namespace NI5sWeb.Modules.Marketing.Escuelas
         protected DataTable dbGetSchoolProducts(string cct, string el, int gr, string c)
         {
             return core.executeProcedureTab(" NIW_MK_GetListaProductos '" + cct + "','" + el + "'," + gr + ",'" + c + "'");
+        }
+
+        protected DataTable dbGetSearchProducts(int c, string search)
+        {
+            return core.executeProcedureTab("NIW_MK_GetProductSearch " + c + ",'" + search + "'");
+        }
+
+        protected DataTable dbSetProduct(string prod, string sch, string el, int gr, int am, string ci)
+        {
+            return core.executeProcedureTab(" NIW_MK_SetSchoolProduct '" + prod + "','" + sch + "','" + el + "'," + gr + "," + am + ",'" + ci + "'");
+        }
+
+        protected bool dbSetStudentsNumber(int school, string level, int grade, int num, string cicle, string folio)
+        {
+            return core.executeProcedure("NIW_MK_SetStudentsNumber " + school + ",'" + level + "'," + grade + "," + num + ",'" + cicle + "','" + folio + "'");
+        }
+
+        protected bool dbRemoveProduct(int id)
+        {
+            return core.executeProcedure("NIW_MK_RemoveSchoolProduct " + id);
         }
     }
 }

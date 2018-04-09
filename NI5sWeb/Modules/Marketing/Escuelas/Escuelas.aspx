@@ -220,13 +220,15 @@
 
                 //$(document).on("click", ".searchField .panel-footer .btn-group a.delSchool", po.deleteSchool);
                 //$(document).on("click", ".searchField .panel-footer .btn-group a.modSchool", po.modSchool);
-                //$(document).on("click", "#newProd .btn-success", po.addProduct)
-                //$(document).on("keyup", "#searchProdId, #searchProd", po.searchProduct);
-                //$(document).on("click", "#dbProductList a", po.selectProduct);
-                //$(document).on("click", "#productsList .input-group .btn", po.removeProduct);
+                $(document).on("click", "#newProd .btn-success", po.addProduct)
+                $(document).on("click", "#newProd .btn-danger", po.borrarSelectProduct)
+
+                $(document).on("keyup", "#searchProdId, #searchProd", po.searchProduct);
+                $(document).on("click", "#dbProductList a", po.selectProduct);
+                $(document).on("click", "#productsList .input-group .btn", po.removeProduct);
                 //$('#listaEscolarModal').on('show.bs.modal', po.getElSchool);
                 //$(document).on("click", "#accordion .panel-info .list-group a, #hCompra a", po.getSchoolList);
-                //$(document).on("click", "#saveStudents", po.addStudentsNumber);
+                $(document).on("click", "#saveStudents", po.addStudentsNumber);
                 //$(document).on("click", "#schoolEditModal .modal-footer .btn-primary", po.setModSchool);
             },
 
@@ -513,6 +515,8 @@
                         $('#saveStudents').parent().parent().find('input:eq(0)').val('');
                     }
 
+                  //  $('#productsList').html('');
+
                     niw.ajax({ action: "ShowSchoolProducts", id: po.schoolSelected, el: el, grade: grade, ciclo: po.ciclo }, function (msg) {
                         $('#productsList').html(msg);
                         $('.lists').show();
@@ -627,6 +631,16 @@
                     });
                 }
             },
+            borrarSelectProduct : function()
+            {
+                var npi = $('#newProd input');//newproductsinputs
+                npi.eq(0).val("");
+                npi.eq(1).val("");
+                npi.eq(2).val('');
+                npi.eq(2).data('um', '');
+                npi.eq(0).focus();
+            }
+            ,
             removeProduct: function () {
                 var id = $(this).data('id');
                 var obj = $(this);
@@ -1152,6 +1166,7 @@
                                 <span class="input-group-addon"><input type="number" style="width:3em;" min="0" /></span>
                                 <span class="input-group-btn">
                                     <button class="btn btn-success" type="button"><i class="fa fa-check"></i></button>
+                                    <button class="btn btn-danger" type="button"><i class="fa fa-remove"></i></button>
                                 </span>
                             </div>
                             <asp:Panel ID="dbProductList" CssClass="list-group" ClientIDMode="Static" runat="server"></asp:Panel>
