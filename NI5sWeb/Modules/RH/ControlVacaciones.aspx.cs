@@ -127,7 +127,7 @@ namespace NI5sWeb.Modules.RH
 
             report.ExportToDisk(ExportFormatType.PortableDocFormat, Context.Server.MapPath(@"..\RH\Reporte\PDF\"+snombre));
 
-            CrystalReportViewer1.ReportSource = report;
+            //CrystalReportViewer1.ReportSource = report;
 
             Response.Write(snombre);
             Response.End();

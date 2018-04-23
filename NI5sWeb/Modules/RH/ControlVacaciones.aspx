@@ -99,7 +99,7 @@
                 var dias = $("#dias").val();
                 var noemp = $('#empleados option:selected').data("noemp");
 
-                if(from!='' && to!= '' && coment != '' && noemp !='')
+                if(from!='' && to!= '' && noemp !='')
                 {
                     niw.ajax({ action: "setNewFormato", from: from, to: to, coment: coment, dias: dias, noemp: noemp }, function (msg) {
                         if(msg=='1')
@@ -348,7 +348,7 @@
                     <button id="print" type="button" class="btn btn-primary" data-toggle="modal" data-target="#imprimirModal" data-backdrop="false">Imprimir Formato</button>
                 </div>
 
-                <CR:CrystalReportViewer ID="CrystalReportViewer1" runat="server" AutoDataBind="true" />
+                <%--<CR:CrystalReportViewer ID="CrystalReportViewer1" runat="server" AutoDataBind="true" />--%>
             </div>
 
             <div class="row">
@@ -376,12 +376,12 @@
                                 <div class="form-group">
                                     <div class="input-group" id="datesContainer">
                                         <span class="input-group-addon">Desde:</span>
-                                        <input type="date" style="width:160px" class="form-control" id="fromDate" />
+                                        <input type="date" style="width:160px" class="form-control" id="fromDate" required="required"/>
                                         <span class="input-group-addon">Hasta:</span>
-                                        <input type="date" style="width:160px" class="form-control" id="toDate" />
+                                        <input type="date" style="width:160px" class="form-control" id="toDate"  required="required"/>
 
                                          <span class="input-group-addon">Dias:</span>
-                                        <input type="text" realonly style="background-color:maroon; color:white;  width:50px" class="form-control" id="dias" />
+                                        <input type="text" realonly style="background-color:maroon; color:white;  width:50px" class="form-control" id="dias" required="required" />
 
                                     </div>
                                 </div>

@@ -68,6 +68,9 @@ namespace NI5sWeb.Modules.Marketing.Escuelas
                 case "RemoveProduct":
                     this.removeProduct();
                     break;
+                case "saveSchool":
+                    this.guardarEscuela();
+                    break;
 
                     //case "GetPromoters":
                     //    this.getPromoters(true);
@@ -305,7 +308,7 @@ namespace NI5sWeb.Modules.Marketing.Escuelas
 
         protected void addStudentsNumber()
         {
-            int sc = Convert.ToInt32(Request["sc"]);
+            string sc = Request["sc"];
             string lvl = Request["lvl"];
             int gr = Convert.ToInt32(Request["gr"]);
             int no = Convert.ToInt32(Request["no"]);
@@ -318,6 +321,60 @@ namespace NI5sWeb.Modules.Marketing.Escuelas
                 Response.Write(0);
             Response.End();
         }
+
+        protected void guardarEscuela()
+        {
+            object[] oParams = new object[34];
+
+            oParams[0] = Request["zona"];
+            oParams[1] = Request["cct"].ToUpper();
+            oParams[2] = Request["nombre"].ToUpper();
+            oParams[3] = Request["nivel"];
+            oParams[4] = Request["teducativo"];
+            oParams[5] = Request["periodo"];
+            oParams[6] = Request["turno"];
+            oParams[7] = Request["control"];
+            oParams[8] = Request["ambito"];
+            oParams[9] = string.IsNullOrEmpty(Request["tdocentes"]) ? "0": Request["tdocentes"];
+            oParams[10] = string.IsNullOrEmpty(Request["tdocentes"]) ? "0" : Request["talumnos"]; 
+          //  oParams[11] = Request["clasificacion"];
+            oParams[11] = Request["estado"];
+            oParams[12] = Request["delegacion"];
+            oParams[13] = Request["calle"].ToUpper();
+            oParams[14] = Request["entrecalles"].ToUpper();
+            oParams[15] = Request["numext"];
+            oParams[16] = Request["cp"];
+            oParams[17] = Request["colonia"].ToUpper();
+            oParams[18] = Request["contacto1"].ToUpper();
+            oParams[19] = Request["cargo1"].ToUpper();
+            oParams[20] = Request["email1"];
+            oParams[21] = Request["contacto2"].ToUpper();
+            oParams[22] = Request["cargo2"].ToUpper();
+            oParams[23] = Request["email2"];
+            oParams[24] = Request["lada"];
+            oParams[25] = Request["telefono"];
+            oParams[26] = string.IsNullOrEmpty(Request["extension"]) ? "0" : Request["talumnos"];
+            oParams[27] = Request["website"];
+            oParams[28] = Request["ckit"];
+            oParams[29] = string.IsNullOrEmpty(Request["ekit"]) ? "False" : Request["ekit"];
+            oParams[30] =  Request["folio"].ToUpper();
+            oParams[31] = string.IsNullOrEmpty(Request["pep"]) ? "False" : Request["pep"];
+            oParams[32] = Request["nota"];
+            oParams[33] = string.IsNullOrEmpty(Request["pep"]) ? "False" : Request["news"];
+
+
+            DataTable dtSave = dbSaveSchool(oParams);
+
+            string smnj = dtSave.Rows[0]["Error"].ToString() + "-" + dtSave.Rows[0]["Mensaje"].ToString();
+
+            Response.Write(smnj);
+            Response.End();
+            
+
+        }
+        
+
+
 
         protected DataTable dbGetEstados()
         {
@@ -350,25 +407,30 @@ namespace NI5sWeb.Modules.Marketing.Escuelas
             sql += "  TotalDocentes,TotalAlumnos, case when TotalAlumnos <= 100 then 'A' 	when TotalAlumnos >100 and TotalAlumnos < =400 then 'AA' when TotalAlumnos > 400 then 'AAA' end as Clasificacion  ";
             sql += "  , Calle , EntreCalles, NumExt as Num , CP,IdDelegacion as ClaveD , Colonia ";
             sql += ",Contacto1, Cargo1,  Email1 ,Contacto2, Cargo2,  Email2  ,Telefono,Lada,NumExt as Extesion ,  WebSite ,ClasificacionKit,EntregaKit,Nota,Folio,IncorporadoPEP ";
-            sql += string.Format(" from NIW_MK_Schools where IdEstado = {0} and IdDelegacion ={1}", Estado, Delegacion);
+            sql += string.Format(" from NIW_MK_Escuelas where IdEstado = {0} and IdDelegacion ={1}", Estado, Delegacion);
 
             return this.core.executeSqlTab(sql);
         }
 
 
-        protected DataTable dbGetSchoolCicles(string cct)
-        {
-            string sql = "SELECT DISTINCT(Ciclo) FROM NIW_MK_SchoolProducts Ciclo inner join NIW_MK_Escuelas E on Ciclo.SchoolId = e.IdEscuela ";
-            sql += string.Format("  WHERE e.ClaveSEP = '{0}'", cct);
+        //protected DataTable dbGetSchoolCicles(string cct)
+        //{
+        //    string sql = "SELECT DISTINCT(Ciclo) FROM NIW_MK_ListasProductos Ciclo inner join NIW_MK_Escuelas E on Ciclo.SchoolId = e.IdEscuela ";
+        //    sql += string.Format("  WHERE e.ClaveSEP = '{0}'", cct);
 
-            return core.executeSqlTab(sql);
+        //    return core.executeSqlTab(sql);
+        //}
+
+        protected DataTable dbGetSchoolCicles(string id)
+        {
+            return core.executeSqlTab("SELECT DISTINCT(Ciclo) FROM NIW_MK_ListasProductos WHERE SchoolId = '" + id + "'");
         }
 
         protected string dbGetStudentsNumber(string cct, string lvl, int gr, string ci)
         {
 
-            string sql = "select Sc.*  from NIW_MK_SchoolCicleStudents Sc inner join  NIW_MK_Escuelas E on sc.SchoolId = e.IdEscuela ";
-            sql +=string.Format(" WHERE e.ClaveSEP = '{0}' and EducationLevel ='{1}' and Grade={2} and Cicle='{3}'",cct,lvl,gr,ci);
+            string sql = "select *  from NIW_MK_EscuelasCliclos  ";
+            sql +=string.Format(" WHERE SchoolId = '{0}' and EducationLevel ='{1}' and Grade={2} and Cicle='{3}'", cct,lvl,gr,ci);
 
             DataTable rows = core.executeSqlTab(sql);
 
@@ -394,14 +456,26 @@ namespace NI5sWeb.Modules.Marketing.Escuelas
             return core.executeProcedureTab(" NIW_MK_SetSchoolProduct '" + prod + "','" + sch + "','" + el + "'," + gr + "," + am + ",'" + ci + "'");
         }
 
-        protected bool dbSetStudentsNumber(int school, string level, int grade, int num, string cicle, string folio)
+        protected bool dbSetStudentsNumber(string school, string level, int grade, int num, string cicle, string folio)
         {
-            return core.executeProcedure("NIW_MK_SetStudentsNumber " + school + ",'" + level + "'," + grade + "," + num + ",'" + cicle + "','" + folio + "'");
+            return core.executeProcedure("NIW_MK_SetStudentsNumber '" + school + "','" + level + "'," + grade + "," + num + ",'" + cicle + "','" + folio + "'");
         }
 
         protected bool dbRemoveProduct(int id)
         {
             return core.executeProcedure("NIW_MK_RemoveSchoolProduct " + id);
         }
+
+        protected DataTable dbSaveSchool(object [] oParams)
+        {
+            string sql = string.Format(" NIW_MK_GuardarEscuela '{0}','{1}','{2}','{3}','{4}','{5}','{6}','{7}','{8}',{9},{10},{11},{12},'{13}','{14}','{15}','{16}','{17}','{18}','{19}','{20}','{21}','{22}','{23}','{24}','{25}',{26},'{27}','{28}','{29}','{30}','{31}','{32}','{33}' ",oParams);
+
+            return core.executeProcedureTab(sql.ToString());
+        }
+
+        //protected bool dbSetStudentsNumber(int school, string level, int grade, int num, string cicle, string folio)
+        //{
+        //    return core.executeProcedure("NIW_MK_SetStudentsNumber " + school + ",'" + level + "'," + grade + "," + num + ",'" + cicle + "','" + folio + "'");
+        //}
     }
 }

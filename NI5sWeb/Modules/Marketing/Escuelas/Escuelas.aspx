@@ -1,4 +1,5 @@
-﻿<%@ Page Title="" Language="C#" MasterPageFile="~/Themes/NIWeb/NI5.Master" AutoEventWireup="true" CodeBehind="Escuelas.aspx.cs" Inherits="NI5sWeb.Modules.Marketing.Escuelas.Escuelas" %>
+﻿
+<%@ Page Title="" Language="C#" MasterPageFile="~/Themes/NIWeb/NI5.Master" AutoEventWireup="true" CodeBehind="Escuelas.aspx.cs" Inherits="NI5sWeb.Modules.Marketing.Escuelas.Escuelas" %>
 
 <asp:Content ID="Content1" ContentPlaceHolderID="head" runat="server">
     <style>
@@ -202,17 +203,28 @@
         $(iface.init);
     </script>
     <script>
+        //$(document).ready(function () {
+        //    $("form").submit(function () {
+        //        event.preventDefault();
+        //         alert("Submitted");
+        //        po.saveschool();
+
+        //    });
+        //});
+
         var po = {
             schoolSelected: null,
+            newSchool : null,
             ciclo: null,
 
             init: function () {
-
+               
                 $(document).on("change", "#estadoPnl", po.GetDelegacionPnl);
                 $(document).on("change", "#delegacionPnl", po.GetEscuelas);
                 $(document).on('click', '#PlzList a.list-group-item', po.selectPlz);
                 $(document).on("keyup", '#proSearcher', po.searchEscuelas);
-                $(document).on("click", "#plzAdminBlock .new", po.limpiarCampos);
+                $(document).on("click", "#plzAdminBlock .new", po.schoolnew);
+                $(document).on("submit", "form " , po.saveschool);
                 $(document).on('click', '#pnllistclicos .movible .addCicloBtn', po.addCiclos);
                 $(document).on('click', '#pnllistclicos .movible .btn', po.getElSchool);
                 $(document).on("click", "#accordion .panel-info .list-group a, #hCompra a", po.getSchoolList);
@@ -230,6 +242,85 @@
                 //$(document).on("click", "#accordion .panel-info .list-group a, #hCompra a", po.getSchoolList);
                 $(document).on("click", "#saveStudents", po.addStudentsNumber);
                 //$(document).on("click", "#schoolEditModal .modal-footer .btn-primary", po.setModSchool);
+            },
+
+            saveschool: function () {
+
+               
+                //$("#basic_validation").vindicate("validate");
+                event.preventDefault();
+
+               var nombre = $('#DatNombre').val();
+               var cct = $('#DatCCT').val();
+               var periodo = $('#DatIncorporacion').val();
+               var zona = $('#DatZona').val();
+               var teducativo =  $('#datTEducativo').val();
+               var nivel = $('#datNEducativo').val();
+               var turno=  $('#datTurno').val();
+               var control = $('#datControl').val();
+               var ambito = $('#datAmbito').val();
+               //var clasificacion = $('#datClasificacion').val();
+               var tdocentes = $('#DatTDocentes').val();
+               var talumnos = $('#DatTAlumnos').val();
+               var calle= $('#DatCalle').val();
+               var entrecalles = $('#DatEntreCalles').val();
+               var numext = $('#DatNumero').val();
+               var cp = $('#DatCP').val();
+               var delegacion = $('#datDelegacion').val();
+               var estado = $('#estadoPnl').val();
+               var colonia = $('#DatColonia').val();
+               var contacto1 = $('#DatContacto1').val();
+               var cargo1= $('#DatCargo1').val();
+               var email1 = $('#DatEmail1').val();
+
+               var contacto2= $('#DatContacto2').val();
+               var cargo2 = $('#DatCargo2').val();
+               var email2 = $('#DatEmail2').val();
+
+               var telefono = $('#DatTelefono').val();
+               var lada = $('#DatLada').val();
+               var extension = $('#DatExt').val();
+               var web = $('#DatWeb').val();
+
+                var ckit=$('#datClasificacionKit').val()
+               var ekit= $('#datKit').val();
+               var nota = $('#DatNota').val();
+               var folio = $('#DatFolio').val();
+               var pep = $('#datPEP').val();
+               var news = po.newSchool;
+
+               if (nombre != '' && cct != '' && pep != '' && teducativo != '' && nivel != '' && turno != '' && ambito != '' && control != '' && periodo != '' && zona != '' && talumnos != '' && ckit != '' && ekit != ''
+                   && calle != '' && colonia != '' && delegacion != '' && cp != '') {
+                   mp.waitPage('show');
+                   niw.ajax({
+                       action: 'saveSchool', zona: zona, cct: cct, nombre: nombre, nivel: nivel, teducativo: teducativo, periodo: periodo, turno: turno, control: control, ambito: ambito, tdocentes: tdocentes, talumnos: talumnos,
+                       estado: estado, delegacion: delegacion, calle: calle, entrecalles: entrecalles, numext: numext, cp: cp, colonia: colonia, contacto1: contacto1, cargo1: cargo1, email1: email1,
+                       contacto2: contacto2, cargo2: cargo2, email2: email2, lada: lada, telefono: telefono, extension: extension, website: web, ckit: ckit, ekit: ekit, folio: folio, pep: pep, nota: nota, news: news
+                   }, function (msg) {
+                       mp.waitPage('hide');
+                       var mnj = msg.split('-');
+
+                       if (mnj[0] == '1') {                           
+                           dialogs.alert(mnj[1], null, "Cambios Guardados", "Aceptar", "iGsuccess");
+                           po.schoolSelected = cct;
+
+                           po.GetEscuelas();
+
+
+                       }
+                       else
+                           dialogs.alert(mnj[1], null, "Verificar ", "Aceptar", "iGdanger");
+
+                      
+                   });
+               }
+
+            },
+
+            schoolnew: function () {
+                po.limpiarCampos();
+                $("#plzAdminBlock .save").attr("disabled", false);
+                po.newSchool = 'True';
             },
 
             GetDelegacionPnl: function () {
@@ -268,6 +359,26 @@
                         $("#plzAdminBlock .new").attr("disabled", true);
 
                     mp.waitPage("hide");
+
+                    if (po.schoolSelected!=null)
+                    {
+
+                        var trs = $('#PlzList a.list-group-item');
+                        //not('#PlzList a.list-group-item:last-child');
+                        //console.info(trs);
+                        trs.hide();
+                        //var str = $('#proSearcher').val(po.schoolSelected).toUpperCase();
+                        $('#PlzList a.list-group-item:contains(' + po.schoolSelected + ')').show();
+                        var list = $('#PlzList a.list-group-item:contains(' + po.schoolSelected + ')')
+                        $('#PlzList .active').removeClass('active');
+
+                        list.addClass('active');
+                        // plz.plaza = $(this).data('id');
+                        var parent = list.parent().parent();
+                        parent.removeClass('col-sm-offset-4');
+
+                        po.getEscData(list);
+                    }
                 });
               
             },
@@ -285,7 +396,10 @@
             },
             searchEscuelas: function () {
 
+                $("#plzAdminBlock .save").attr("disabled", true);
+                $("#plzAdminBlock .del").attr("disabled", true);
 
+                po.limpiarCampos();
 
                 var trs = $('#PlzList a.list-group-item');
                 //not('#PlzList a.list-group-item:last-child');
@@ -302,6 +416,7 @@
                 var cct = btn.data('id');
 
                 po.schoolSelected = cct;
+                po.newSchool = 'False';
 
                 $('#DatNombre').val(btn.data('nombre'));
                 $('#DatCCT').val(cct);
@@ -328,18 +443,18 @@
 
                 $('#DatContacto2').val(btn.data('contacto2'));
                 $('#DatCargo2').val(btn.data('cargo2'));
-                $('#DatEmail2').val(btn.data('email2'))
+                $('#DatEmail2').val(btn.data('email2'));
 
                 $('#DatTelefono').val(btn.data('telefono'));
                 $('#DatLada').val(btn.data('lada'));
-                $('#DatExt').val(btn.data('extension'))
-                $('#DatWeb').val(btn.data('website'))
+                $('#DatExt').val(btn.data('extension'));
+                $('#DatWeb').val(btn.data('website'));
 
-                $('#datClasificacionKit').val(btn.data('ckit'))
-                $('#datKit').val(btn.data('ekit'))
-                $('#DatNota').val(btn.data('nota'))
-                $('#DatFolio').val(btn.data('folio'))
-                $('#datPEP').val(btn.data('pep'))
+                $('#datClasificacionKit').val(btn.data('ckit'));
+                $('#datKit').val(btn.data('ekit'));
+                $('#DatNota').val(btn.data('nota'));
+                $('#DatFolio').val(btn.data('folio'));
+                $('#datPEP').val(btn.data('pep'));
 
 
                 //  var del = $('#delegacionPnl').val();
@@ -499,7 +614,7 @@
                 $('#accordion .active').removeClass('active');
                 $(this).addClass('active');
                 grade = parseInt(grade) + 1;
-                if (el == 'PREESCOLAR') el = 'Jardin';
+                if (el == 'PREESCOLAR') el = 'PREESCOLAR';
 
                 var schoolList = $('#productsList');
                 schoolList.data('school', po.schoolSelected);
@@ -513,6 +628,7 @@
                         $('#saveStudents').parent().parent().find('input:eq(1)').val(obj.f);
                     } else {
                         $('#saveStudents').parent().parent().find('input:eq(0)').val('');
+                        $('#saveStudents').parent().parent().find('input:eq(1)').val('')
                     }
 
                   //  $('#productsList').html('');
@@ -691,13 +807,13 @@
 
             </div>
         </div>
-
-        <div class="col-sm-8" id="plzAdminBlock">
+    <form action="" > 
+        <div class="col-sm-8" id="plzAdminBlock"  >
             <div class="row plzAdminArea">
                 <div class="col-md-12 btn-group" role="group">
-                    <button type="button" class="btn btn-success new" disabled="disabled"><i class="fa fa-archive"></i>Agregar Nueva Escuela</button>
-                    <button type="button" class="btn btn-primary save" disabled="disabled"><i class="fa fa-save"></i>Guardar Cambios</button>
-                    <button type="button" class="btn btn-danger del" disabled="disabled"><i class="fa fa-trash"></i>Eliminar</button>
+                    <button type="button" class="btn btn-success new" disabled="disabled"><i class="fa fa-archive"></i>  Agregar Nueva Escuela</button>
+                    <button type="submit" class="btn btn-primary save" disabled="disabled"><i class="fa fa-save"></i>  Guardar Cambios</button>
+                    <button type="button" class="btn btn-danger del" disabled="disabled"><i class="fa fa-trash"></i>  Eliminar</button>
                 </div>
                 <div class="clear"></div>
             </div>
@@ -708,6 +824,8 @@
                 <li><a data-toggle="tab" href="#menu3">Contactos</a></li>
                 <li><a data-toggle="tab" href="#menu4">Listas Escolares</a></li>
             </ul>
+            
+                
             <div class="tab-content">
 
                 <div id="menu1" class="tab-pane fade in active">
@@ -727,7 +845,7 @@
                         <div class="col-md-3">
                             <div class="form-group">
                                 <label for="datCCT">CCT</label>
-                                <input type="text" id="DatCCT" class="form-control" placeholder="CCT" required="required">
+                                <input type="text" id="DatCCT" class="form-control" placeholder="CCT" required="required"/>
                             </div>
                         </div>
                         <div class="col-md-2">
@@ -767,6 +885,7 @@
                                 <label for="datType">Nivel Educativo</label>
                                 <select class="form-control" id="datNEducativo" required="required">
                                     <option value="">Nivel Educativo</option>
+                                    <option value="MATERNAL">MATERNAL</option>
                                     <option value="PREESCOLAR">PREESCOLAR</option>
                                     <option value="PRIMARIA">PRIMARIA</option>
                                     <option value="SECUNDARIA">SECUNDARIA</option>
@@ -779,7 +898,7 @@
                         <div class="col-md-2">
                             <div class="form-group">
                                 <label for="datType">Turno</label>
-                                <select class="form-control" id="datTurno">
+                                <select class="form-control" id="datTurno" required="required" >
                                     <option value="">Turno</option>
                                     <option value="MATUTINO">MATUTINO</option>
                                     <option value="VESPERTINO">VESPERTINO</option>
@@ -790,7 +909,7 @@
                         <div class="col-md-2">
                             <div class="form-group">
                                 <label for="datType">Ambito</label>
-                                <select class="form-control" id="datAmbito">
+                                <select class="form-control" id="datAmbito" required="required" >
                                     <option value="">Ambito</option>
                                     <option value="URBANA">URBANA</option>
                                     <option value="RURAL">RURAL</option>
@@ -802,7 +921,7 @@
                         <div class="col-md-5">
                             <div class="form-group">
                                 <label for="datType">Control</label>
-                                <select class="form-control" id="datControl">
+                                <select class="form-control" id="datControl" required="required">
                                     <option value="">Control</option>
                                     <option value="PRIVADO">PRIVADO</option>
                                     <option value="PUBLICO">PÚBLICO</option>
@@ -858,7 +977,7 @@
                         <div class="col-md-3">
                             <div class="form-group">
                                 <label for="datClaK">Clasificación Kit Escolar</label>
-                                <select class="form-control" id="datClasificacionKit">
+                                <select class="form-control" id="datClasificacionKit" required="required" >
                                     <option value="">Clasificación Kit Escolar</option>
                                     <option value="A" selected="selected">A</option>
                                     <option value="AA">AA </option>
@@ -870,7 +989,7 @@
                         <div class="col-md-3">
                             <div class="form-group">
                                 <label for="datKitE">Entrega Kit Escolar</label>
-                                <select class="form-control" id="datKit">
+                                <select class="form-control" id="datKit" required="required" >
                                     <option value="">Entrega Kit Escolar</option>
                                     <option value="True">SI</option>
                                     <option value="False" selected="selected">NO</option>
@@ -896,14 +1015,14 @@
                         <div class="col-md-5">
                             <div class="form-group">
                                 <label for="datCalle">Calle</label>
-                                <input type="text" id="DatCalle" class="form-control" placeholder="Calle" />
+                                <input type="text" id="DatCalle" class="form-control" placeholder="Calle" required="required" />
                             </div>
                         </div>
 
                         <div class="col-md-5">
                             <div class="form-group">
                                 <label for="datEntreCa">Entre Calles</label>
-                                <input type="text" id="DatEntreCalles" class="form-control" placeholder="Entre Calles" />
+                                <input type="text" id="DatEntreCalles" class="form-control" placeholder="Entre Calles"  />
                             </div>
                         </div>
                         <div class="col-md-2">
@@ -916,13 +1035,13 @@
                         <div class="col-md-5">
                             <div class="form-group">
                                 <label for="datColonia">Colonia</label>
-                                <input type="text" id="DatColonia" class="form-control" placeholder="Colonia" />
+                                <input type="text" id="DatColonia" class="form-control" placeholder="Colonia" required="required" />
                             </div>
                         </div>
                         <div class="col-md-5">
                             <div class="form-group">
                                 <label for="datDel">Delegación</label>
-                                <select class="form-control" id="datDelegacion">
+                                <select class="form-control" id="datDelegacion" required="required" >
                                 </select>
                             </div>
                         </div>
@@ -930,7 +1049,7 @@
                         <div class="col-md-2">
                             <div class="form-group">
                                 <label for="datCP">Codigo Postal</label>
-                                <input type="Number" id="DatCP" class="form-control" placeholder="Codigo Postal" />
+                                <input type="Number" id="DatCP" class="form-control" placeholder="Codigo Postal" required="required" />
                             </div>
                         </div>
 
@@ -997,8 +1116,8 @@
 
                         <div class="col-md-2">
                             <div class="form-group">
-                                <label for="datExt">Extesion</label>
-                                <input type="text" id="DatExt" class="form-control" placeholder="Extesion" />
+                                <label for="datExt">Extension</label>
+                                <input type="number" id="DatExt" class="form-control" placeholder="Extension" />
                             </div>
                         </div>
 
@@ -1072,6 +1191,22 @@
                                         </div>
                                     </div>
                                 </div>--%>
+                                <div class="panel panel-info">
+                                    <div class="panel-heading" role="tab" id="headingcero">
+                                        <h4 class="panel-title">
+                                            <a role="button" data-toggle="collapse" data-parent="#accordion" href="#collapsecero" aria-expanded="false" aria-controls="collapseCero">
+                                                MATERNAL
+                                            </a>
+                                        </h4>
+                                    </div>
+                                    <div id="collapsecero" class="panel-collapse collapse" role="tabpanel" aria-labelledby="headingcerp">
+                                        <div class="panel-body">
+                                            <div class="list-group">
+                                                <a href="#" class="list-group-item">Primer Grado</a>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
                                 <div class="panel panel-info">
                                     <div class="panel-heading" role="tab" id="headingOne">
                                         <h4 class="panel-title">
@@ -1183,7 +1318,11 @@
                 </div>
 
             </div>
+                   
+                
+       
         </div>
+      </form>
     </div>
     <!-- Modal -->
     <div class="modal fade" id="promotoresModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">

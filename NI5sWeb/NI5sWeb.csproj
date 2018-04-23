@@ -129,6 +129,7 @@
     <Content Include="Themes\NIWeb\js\jQuery.print.js" />
     <Content Include="Themes\NIWeb\js\numeral.min.js" />
     <Content Include="Themes\NIWeb\js\pdfobject.js" />
+    <Content Include="Themes\NIWeb\js\vindicate.js" />
     <Content Include="Themes\NIWeb\NI5.Master" />
     <Content Include="Themes\NIWeb\NI5Local.Master" />
     <Content Include="packages.config">

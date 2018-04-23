@@ -285,7 +285,7 @@ namespace NI5sWeb.Modules.Marketing.Escuelas
                 Response.Write(1);
             else
                 Response.Write(0);
-            Response.End();
+            Response.End(); 
         }
 
         protected void getStudentsNumber()

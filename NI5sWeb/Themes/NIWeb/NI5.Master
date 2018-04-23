@@ -23,6 +23,7 @@
     <script src="/Themes/NIWeb/js/jquery.datepair.min.js"></script>
      <script src="/Themes/NIWeb/js/jQuery.print.js"></script>
     <script src="/Themes/NIWeb/js/bootstrap-formhelpers-phone.js"></script>
+    <script src="/Themes/NIWeb/js/vindicate.js"></script>
 <%--    <script src="/Themes/NIWeb/js/bootstrap-multiselect.min.js"></script>--%>
 
      <%--<link href="//netdna.bootstrapcdn.com/bootstrap/3.2.0/css/bootstrap.min.css" rel="stylesheet"/>--%>
