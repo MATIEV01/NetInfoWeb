@@ -290,7 +290,7 @@ namespace NI5sWeb.Modules.Marketing.Escuelas
 
         protected void getStudentsNumber()
         {
-            int sc = Convert.ToInt32(Request["sc"]);
+            string sc = Request["sc"];
             string lvl = Request["lvl"];
             int gr = Convert.ToInt32(Request["gr"]);
             string ci = Request["ci"];
@@ -439,9 +439,9 @@ namespace NI5sWeb.Modules.Marketing.Escuelas
         {
             return core.executeProcedure("NIW_MK_SetStudentsNumber " + school + ",'" + level + "'," + grade + "," + num + ",'" + cicle + "','" + folio + "'");
         }
-        protected string dbGetStudentsNumber(int sc, string lvl, int gr, string ci)
+        protected string dbGetStudentsNumber(string sc, string lvl, int gr, string ci)
         {
-            DataTable rows = core.executeSqlTab("SELECT * FROM NIW_MK_SchoolCicleStudents WHERE SchoolId = " + sc + " AND EducationLevel = '" + lvl + "' AND Grade = " + gr + " AND Cicle = '" + ci + "'");
+            DataTable rows = core.executeSqlTab("SELECT * FROM NIW_MK_EscuelasCliclos WHERE SchoolId = '" + sc + "' AND EducationLevel = '" + lvl + "' AND Grade = " + gr + " AND Cicle = '" + ci + "'");
             string res = "{}";
             if (rows.Rows.Count > 0)
                 res = "{\"n\":" + rows.Rows[0]["Students"].ToString() + ",\"f\":\"" + rows.Rows[0]["ListCode"].ToString() + "\"}";

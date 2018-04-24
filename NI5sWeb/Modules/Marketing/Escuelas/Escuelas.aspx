@@ -564,7 +564,7 @@
             addCiclos: function () {
                 var lc = $(this).parent().parent().find('.listContent');
                 var ffs = lc.find('.form-field');
-                var cicle = '2015-2016';
+                var cicle = '2017-2018';
                 if (ffs.length > 0) {
                     ff = ffs.eq(ffs.length - 1).text();
                     cicle = ff.split('-')[1];
@@ -614,7 +614,13 @@
                 $('#accordion .active').removeClass('active');
                 $(this).addClass('active');
                 grade = parseInt(grade) + 1;
-                if (el == 'PREESCOLAR') el = 'PREESCOLAR';
+                if (grade == 1)
+                    grade = 0
+                else
+                    grade = grade -1
+
+
+                //if (el == 'PREESCOLAR') el = 'PREESCOLAR';
 
                 var schoolList = $('#productsList');
                 schoolList.data('school', po.schoolSelected);
@@ -631,7 +637,7 @@
                         $('#saveStudents').parent().parent().find('input:eq(1)').val('')
                     }
 
-                  //  $('#productsList').html('');
+                    $('#productsList').html('');
 
                     niw.ajax({ action: "ShowSchoolProducts", id: po.schoolSelected, el: el, grade: grade, ciclo: po.ciclo }, function (msg) {
                         $('#productsList').html(msg);
@@ -825,7 +831,7 @@
                 <li><a data-toggle="tab" href="#menu4">Listas Escolares</a></li>
             </ul>
             
-                
+
             <div class="tab-content">
 
                 <div id="menu1" class="tab-pane fade in active">
@@ -1218,6 +1224,7 @@
                                     <div id="collapseOne" class="panel-collapse collapse" role="tabpanel" aria-labelledby="headingOne">
                                         <div class="panel-body">
                                             <div class="list-group">
+                                                 <a href="#" class="list-group-item">Maternal</a>
                                                 <a href="#" class="list-group-item">Primer Grado</a>
                                                 <a href="#" class="list-group-item">Segundo Grado</a>
                                                 <a href="#" class="list-group-item">Tercer Grado</a>
